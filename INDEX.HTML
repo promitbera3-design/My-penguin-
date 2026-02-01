@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Bash | For My Gublu Penguin</title>
+    <style>
+        :root {
+            --primary: #ec4899;
+            --secondary: #a855f7;
+            --glass: rgba(255, 255, 255, 0.85);
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Fixed background problem using your selfie with a soft overlay */
+            background: linear-gradient(rgba(253, 242, 248, 0.7), rgba(253, 242, 248, 0.7)), 
+                        url('photo1.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- ATTRACTIVE ANIMATIONS --- */
+        .heart {
+            position: fixed;
+            color: var(--primary);
+            font-size: 20px;
+            user-select: none;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @keyframes float { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-20px); } 
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo { font-weight: bold; color: var(--primary); font-size: 1.4rem; }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav ul li a { text-decoration: none; color: #444; font-weight: 600; transition: 0.3s; }
+        nav ul li a:hover { color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; color: #1f2937; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .hero p { color: #6b7280; font-size: 1.2rem; margin-bottom: 20px; }
+
+        .cake-img {
+            width: 280px;
+            margin: 30px 0;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-start:hover { transform: scale(1.1) rotate(-2deg); }
+
+        /* --- GALLERY --- */
+        .section-title { text-align: center; margin: 60px 0 30px; font-size: 2.5rem; }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 50px 50px;
+        }
+
+        .photo-card {
+            background: var(--white);
+            padding: 12px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: 0.4s;
+            text-align: center;
+        }
+
+        .photo-card:hover { transform: scale(1.05) rotate(2deg); }
+        .photo-card img { width: 100%; border-radius: 15px; height: 380px; object-fit: cover; }
+        .photo-card p { font-weight: 600; margin-top: 15px; color: #444; }
+
+        /* --- MUSIC PLAYER --- */
+        .music-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: var(--glass);
+            backdrop-filter: blur(5px);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* --- PUZZLE SECTION --- */
+        #puzzle-board {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            border: 6px solid white;
+            border-radius: 8px;
+            background: #eee;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background-size: 300px 300px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .puzzle-piece:hover { opacity: 0.9; }
+
+        .puzzle-container {
+            text-align: center;
+            padding-bottom: 100px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">🎂 Birthday Bash</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#music">Music</a></li>
+            <li><a href="#game">Game</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Happy Birthday Booboo amr gublu penguin ta 🥳</h1>
+        <p>To the most beautiful girl, inside and out. Let's celebrate together!</p>
+        <img src="birthday cake.jpg" class="cake-img" alt="Cake">
+        <br>
+        <button class="btn-start" onclick="createHeart()">Send a Heart! ❤️</button>
+    </section>
+
+    <h2 id="gallery" class="section-title">✨ Memory Gallery</h2>
+    <div class="gallery-grid">
+        <div class="photo-card">
+            <img src="WhatsApp Image 2026-01-31 at 12.27.28 PM.jpeg" alt="Comic Style">
+            <p>Our Pop Comic Story 🗯️</p>
+        </div>
+        <div class="photo-card">
+            <img src="WhatsApp Image 2026-01-31 at 12.27.28 PM1.jpeg" alt="Traditional Sunset">
+            <p>Soulmates & Sunsets 🌅</p>
+        </div>
+        <div class="photo-card">
+            <img src="WhatsApp Image 2026-01-31 at 12.27.29 PM.jpeg" alt="City Lights">
+            <p>Sparkling with You ✨</p>
+        </div>
+        <div class="photo-card">
+            <img src="WhatsApp Image 2026-01-31 at 12.27.32 PM.jpeg" alt="Kiss">
+            <p>Sweetest Moments 💋</p>
+        </div>
+        <div class="photo-card">
+            <img src="WhatsApp Image 2026-01-31 at 12.27.34 PM.jpeg" alt="Grid Collage">
+            <p>Every Smile Matters 📸</p>
+        </div>
+        <div class="photo-card">
+            <img src="WhatsApp Image 2026-01-31 at 12.27.35 PM.jpeg" alt="Torn Paper Style">
+            <p>Always Better Together ❤️</p>
+        </div>
+    </div>
+
+    <section id="music" class="music-container">
+        <h3>🎵 Birthday Playlist</h3>
+        <p>Our favorite song</p>
+        <audio controls style="width: 100%; margin-top: 15px;">
+            <source src="your-song.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+
+    <section id="game" class="puzzle-container">
+        <h2 style="font-size: 2.5rem;">🧩 The Anniversary Puzzle</h2>
+        <p>Solve this to reveal our special memory!</p>
+        <div id="puzzle-board"></div>
+        <button class="btn-start" onclick="shufflePuzzle()" style="margin-top: 20px;">Shuffle & Play</button>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        // --- 1. SLIDING PUZZLE LOGIC ---
+        const board = document.getElementById('puzzle-board');
+        let tiles = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // 8 is the empty slot
+
+        function createPuzzle() {
+            board.innerHTML = '';
+            tiles.forEach((tileValue, index) => {
+                const div = document.createElement('div');
+                div.classList.add('puzzle-piece');
+                
+                if (tileValue !== 8) {
+                    // Using your selfie for the puzzle segments
+                    div.style.backgroundImage = `url('photo1.jpeg')`;
+                    const row = Math.floor(tileValue / 3);
+                    const col = tileValue % 3;
+                    div.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
+                } else {
+                    div.style.background = "#fff";
+                }
+                
+                div.onclick = () => moveTile(index);
+                board.appendChild(div);
+            });
+        }
+
+        function moveTile(index) {
+            const emptyIndex = tiles.indexOf(8);
+            // Check if adjacent (Left, Right, Top, Bottom)
+            const isAdjacent = [index-1, index+1, index-3, index+3].includes(emptyIndex);
+            
+            if (isAdjacent) {
+                [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+                createPuzzle();
+                checkWin();
+            }
+        }
+
+        function shufflePuzzle() {
+            // Fisher-Yates shuffle
+            for (let i = tiles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+            }
+            createPuzzle();
+        }
+
+        function checkWin() {
+            if (tiles.every((v, i) => v === i)) {
+                confetti({
+                    particleCount: 200,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                setTimeout(() => alert("Happy Birthday! You're my missing piece! ❤️"), 500);
+            }
+        }
+
+        // --- 2. FALLING HEARTS ANIMATION ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // Initial setup
+        setInterval(createHeart, 800);
+        createPuzzle();
+    </script>
+</body>
+</html>

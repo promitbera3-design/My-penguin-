@@ -1,0 +1,153 @@
+/* Import a clean, modern font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 100%);
+    --pink: #ec4899;
+    --purple: #a855f7;
+    --glass: rgba(255, 255, 255, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    color: #4b5563;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Glassy Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 10%;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+nav .logo { font-weight: 600; color: var(--pink); font-size: 1.2rem; }
+nav ul { display: flex; list-style: none; gap: 2rem; }
+nav ul li a { text-decoration: none; color: #4b5563; transition: 0.3s; }
+nav ul li a:hover { color: var(--pink); }
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 { font-size: 3.5rem; color: #1f2937; margin-bottom: 1rem; }
+.floating-cake {
+    width: 280px;
+    margin: 2rem 0;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+    animation: bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Gallery Grid */
+.gallery { padding: 100px 10%; }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--white);
+    padding: 12px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: 0.4s;
+}
+
+.card:hover { transform: scale(1.03) rotate(1deg); }
+.card img { width: 100%; border-radius: 15px; height: 250px; object-fit: cover; }
+.card p { padding: 15px; font-weight: 600; text-align: center; }
+
+/* Puzzle Section */
+.puzzle-section { text-align: center; padding: 100px 10%; background: var(--glass); }
+#puzzle-board {
+    width: 300px;
+    height: 300px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    border: 5px solid white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.tile {
+    width: 100px;
+    height: 100px;
+    background-size: 300px 300px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Music Player Style */
+.music-section { padding: 50px 10%; text-align: center; }
+.player-card {
+    background: white;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: #eee;
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--pink);
+    transition: width 0.1s linear;
+}
+
+.btn-primary {
+    background: var(--pink);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover { background: var(--purple); transform: translateY(-3px); }
